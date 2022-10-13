@@ -1,5 +1,5 @@
-# API Tribunal de Contas da Uniao
-# Consulta Consolidada CNPJ
+# API Tribunal de Contas da Uniao - Consulta Consolidada por CNPJ
+# Estrategia de versionamento semver.org / major.minor.patch
 
 import requests
 import json
