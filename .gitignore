@@ -1,0 +1,6 @@
+venv
+JS
+JS/node_modules
+.vscode
+Dockerfile
+resposta.json
