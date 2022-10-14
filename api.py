@@ -3,6 +3,7 @@
 
 import requests
 import json
+from termcolor import colored
 
 def gravaJson():
     with open("resposta.json", "w") as file:
@@ -16,7 +17,7 @@ def retornaJson():
 #    print("** Comunicando com a API ..**")
 #    print("*****************************")
 
-arnaEndPoint1 = "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/29292707000109?seEmitirPDF=false"
+arnaEndPoint1 = "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/76535764000143?seEmitirPDF=false"
 arnaCon = requests.get(arnaEndPoint1)
 arnaDados = arnaCon.json()
  
@@ -26,10 +27,10 @@ if (arnaCon.status_code != 200):
     print("Falha na Comunicacao com a API...")
 else:
     print()
-    print("     ==============================   ")
-    print("      Inteligência Competitiva        ")
-    print("     -DADOS DA EMPRESA PESQUISADA-    ")
-    print("     ==============================   ")
+    print(colored("     ===================================   ", "red"))
+    print(colored("      Inteligência Competitiva Ver 1.0.0   ", "red"))
+    print(colored("        -DADOS DA EMPRESA PESQUISADA-      ", "red"))
+    print(colored("     ===================================   ", "red"))
     print()
     print('Razao Social..: {}'.format(arnaDados["razaoSocial"]))
     print('Nome Fantasia.: {}'.format(arnaDados["nomeFantasia"]))
@@ -38,7 +39,7 @@ else:
 
     arnaIndice = 0
     for i in arnaDados["certidoes"]:
-        print("-------------------------------------------------------------")
+        print(colored("-------------------------------------------------------------", "green"))
         print('EMISSOR......: {}'.format(arnaDados["certidoes"][arnaIndice]["emissor"]))
         print('TIPO.........: {}'.format(arnaDados["certidoes"][arnaIndice]["tipo"]))
         print('DATA/HORA....: {}'.format(arnaDados["certidoes"][arnaIndice]["dataHoraEmissao"]))
