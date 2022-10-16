@@ -4,3 +4,4 @@ JS/node_modules
 .vscode
 Dockerfile
 resposta.json
+.pytest_cache
