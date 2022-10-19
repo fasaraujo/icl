@@ -10,11 +10,22 @@ Ferramenta em versão experimental para busca de sanções aplicadas a empresas 
 
 [CNEP] Cadastro Nacional de Empresas Punidas.
 
-[SICAF] Ocorrências que Geram Impedmentos de Licitar Vigentes.
+[SICAF] Ocorrências que Geram Impedimentos de Licitar Vigentes.
 
-[SICAF] Ocorrências que Geram Impedmentos de Licitar Históricas.
+[SICAF] Ocorrências que Geram Impedimentos de Licitar Históricas.
 
 
-                                TELA INICIAL:
+                                TELA INICIAL
 
 ![image](https://user-images.githubusercontent.com/90231217/196787410-adbde075-86a1-4f73-8af4-71eadfd55e67.png)
+
+
+                               RESULTADO PESQUISA CONSOLIDADA POR CNPJ TCU
+
+![image](https://user-images.githubusercontent.com/90231217/196796742-dcba9186-b1d8-403d-b37b-add22298b081.png)
+
+                               RESULTADO PESQUISA SICAF 
+                                
+![image](https://user-images.githubusercontent.com/90231217/196797047-288fd5a9-894e-490f-903d-6fe22e560d3e.png)
+
+
