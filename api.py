@@ -9,7 +9,7 @@ def telaInicial():
     print()
     print(colored("     ===================================   ", "red"))
     print(colored("      Inteligência Competitiva Ver 1.0.0   ", "red"))
-    print(colored("        -DADOS DA EMPRESA PESQUISADA-      ", "red"))
+    print(colored("             -Busca de Sanções-            ", "red"))
     print(colored("     ===================================   ", "red"))
     
 def telaDadosBasicosCnpj():   
@@ -50,7 +50,7 @@ arnaEndPoint2 = 'http://compras.dados.gov.br/fornecedores/v1/ocorrencias_fornece
 arnaEndPoint3 = 'http://compras.dados.gov.br/fornecedores/v1/ocorrencias_fornecedores.json?cnpj={}&impedido_licitar=true'.format(arnaPegaCnpj)
 
 if (arnaConTcu.status_code != 200):
-    print("Falha na Comunicacao com a API...")
+    print(colored('Falha na comunicao com a API TCU.', 'red', attrs=["reverse", "blink"]))
 else:
     telaDadosBasicosCnpj()
     arnaIndice = 0
@@ -62,7 +62,7 @@ else:
         print('DESCRICAO....: {}'.format(arnaDadosTcu["certidoes"][arnaIndice]["descricao"]))
         print('SITUACAO.....: ** {} **'.format(arnaDadosTcu["certidoes"][arnaIndice]["situacao"]))
         
-        if ( arnaDadosTcu["certidoes"][arnaIndice]["observacao"] == str("null")):
+        if not arnaDadosTcu["certidoes"][arnaIndice]["observacao"]:
             print('OBSERVACAO....: N/A')
         else:
             print('OBSERVACAO....: {}'.format(arnaDadosTcu["certidoes"][arnaIndice]["observacao"]))
@@ -78,7 +78,7 @@ arnaConSicafVigente = requests.get(arnaEndPoint2)
 arnaDadosJsonSicafVigente = arnaConSicafVigente.json()
 
 if (arnaConSicafVigente.status_code != 200):
-    print(colored('Falha na comunicao com a API.', 'red', attrs=["reverse", "blink"]))
+    print(colored('Falha na comunicao com a API SICAF.', 'red', attrs=["reverse", "blink"]))
 else:
     TelaSicafVigente()
     arnaIndiceSicafVigente = 0
@@ -91,7 +91,7 @@ else:
      print('TIPO ........:',arnaDadosJsonSicafVigente['_embedded']['ocorrenciasFornecedores'][arnaIndiceSicafVigente]['_links']['tipo_ocorrencia']['title'])
      print('UASG .........:',arnaDadosJsonSicafVigente['_embedded']['ocorrenciasFornecedores'][arnaIndiceSicafVigente]['_links']['uasg']['title'])
      print(colored('-------------------------------------------------------------', "green"))
-    arnaIndiceSicafVigente +=1
+     arnaIndiceSicafVigente +=1
 print()
 print()
 print(colored('Buscando Historico de impedimentos anteriores <Nao Vigentes>..', 'yellow'))
@@ -101,7 +101,7 @@ arnaConSicafHistorico = requests.get(arnaEndPoint3)
 arnaDadosJsonSicafHistorico = arnaConSicafHistorico.json()
 
 if (arnaConSicafHistorico.status_code != 200):
-    print(colored('Falha na comunicao com a API.', 'red', attrs=["reverse", "blink"]))
+    print(colored('Falha na comunicao com a API SICAF .', 'red', attrs=["reverse", "blink"]))
 else:
     TelaSicafHistorico()
     arnaIndiceSicafHistorico = 0
