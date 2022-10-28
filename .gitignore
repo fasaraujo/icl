@@ -4,3 +4,6 @@ JS/node_modules
 .vscode
 resposta.json
 .pytest_cache
+start.sh
+docker-compose.yml
+
