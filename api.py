@@ -1,9 +1,25 @@
-# API Tribunal de Contas da Uniao - Consulta Consolidada por CNPJ
-# Estrategia de versionamento semver.org / major.minor.patch
+# Utiliza API Tribunal de Contas da Uniao - Consulta Consolidada por CNPJ
+# Utiliza API compras.dados.gov.br // informacoes sicaf
+# api.py ver 1.0.0
+# Francisco Arnaldo S. Araujo -> netservicero@gmail.com // github.com/fasaraujo
 
 import requests
 import json
 from termcolor import colored
+
+class Url:
+    def __init__(self, url):
+        self.url = url
+
+    def getUrl(self):
+        return self.url
+
+    def conecta(self):
+        response = requests.get(self.url)
+        return response
+
+def arnaStatusCode(self):
+    pass
 
 def telaInicial():
     print()
@@ -29,25 +45,17 @@ def TelaSicafHistorico():
     print(colored('  HISTORICO DE IMPEDIMENTOS DE LICITAR <NAO VIGENTES> SICAF  ', 'green', attrs=["reverse", "blink"]))
     print(colored('-------------------------------------------------------------', "green"))      
 
-def gravaJson():
-    with open("resposta.json", "w") as file:
-        json.dump(arnaDadosTcu,file,indent=2)
-
-def retornaJson():
-    return arnaDadosTcu
-
 telaInicial()
 print()
 
 arnaPegaCnpj = str(input(colored('Pesquisar para CNPJ..: ', 'yellow')))
 
-arnaEndPoint1 = 'https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/{}?seEmitirPDF=false'.format(arnaPegaCnpj)
-arnaConTcu = requests.get(arnaEndPoint1)
+Tcu = Url('https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/{}?seEmitirPDF=false'.format(arnaPegaCnpj))
+arnaConTcu = Tcu.conecta()
 arnaDadosTcu = arnaConTcu.json()
 
-arnaEndPoint2 = 'http://compras.dados.gov.br/fornecedores/v1/ocorrencias_fornecedores.json?cnpj={}&impedido_licitar=true&vigente=sim'.format(arnaPegaCnpj)
-
-arnaEndPoint3 = 'http://compras.dados.gov.br/fornecedores/v1/ocorrencias_fornecedores.json?cnpj={}&impedido_licitar=true'.format(arnaPegaCnpj)
+sicafSancoesVigentes = Url('http://compras.dados.gov.br/fornecedores/v1/ocorrencias_fornecedores.json?cnpj={}&impedido_licitar=true&vigente=sim'.format(arnaPegaCnpj))
+sicafSancoesHistorico = Url('http://compras.dados.gov.br/fornecedores/v1/ocorrencias_fornecedores.json?cnpj={}&impedido_licitar=true'.format(arnaPegaCnpj))
 
 if (arnaConTcu.status_code != 200):
     print(colored('Falha na comunicao com a API TCU.', 'red', attrs=["reverse", "blink"]))
@@ -73,8 +81,7 @@ print()
 print(colored('Comunicando com API SICAF..', 'yellow'))
 print()
 
-
-arnaConSicafVigente = requests.get(arnaEndPoint2)
+arnaConSicafVigente = sicafSancoesVigentes.conecta()
 arnaDadosJsonSicafVigente = arnaConSicafVigente.json()
 
 if (arnaConSicafVigente.status_code != 200):
@@ -97,7 +104,7 @@ print()
 print(colored('Buscando Historico de impedimentos anteriores <Nao Vigentes>..', 'yellow'))
 print()
 
-arnaConSicafHistorico = requests.get(arnaEndPoint3)
+arnaConSicafHistorico = sicafSancoesHistorico.conecta()
 arnaDadosJsonSicafHistorico = arnaConSicafHistorico.json()
 
 if (arnaConSicafHistorico.status_code != 200):
@@ -119,4 +126,7 @@ else:
 print()
 print(colored('Fim de pesquisa..', 'yellow'))
 print()
+
+# __name__== '__main__'
+
 
